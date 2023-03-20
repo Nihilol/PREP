@@ -663,6 +663,17 @@ def build_2x3structure(layer, layer_dot, layer_barrier, layer_screening, layer_o
     port_ohmic_4 = D.add_port(name='O4', midpoint = [ohmic_4.center[0], ohmic_4.center[1]],
                                                 width = length_port_ohmic_4, orientation = orientation_port_ohmic_4)
 
+    pu.write_lyp('2x3_inner_structure_props.lyp', layerset = lys)
+
+    D.write_gds(filename = '2x3_inner_structure.gds', # Output GDS file name
+            unit = 1e-9,                  # Base unit (1e-6 = microns)
+            precision = 1e-9,             # Precision / resolution (1e-9 = nanometers)
+            auto_rename = True,           # Automatically rename cells to avoid collisions
+            max_cellname_length = 28,     # Max length of cell names
+            cellname = 'toplevel'         # Name of output top-level cell
+           )
+
+
 
     North_placements = [1, 3, 4, 5, 6, 7, 8, 9, 10]
 
@@ -721,7 +732,7 @@ def build_2x3structure(layer, layer_dot, layer_barrier, layer_screening, layer_o
     East_objects_to_route = [port_ohmic_4, barrier_sensordot_4_port.ports['3'], 
                             screening_sensordot2_connector.ports['2'], sensordot_2_port.ports['3'], barrier_sensordot_2_port.ports['3'],
                             port_ohmic_3]
-    
+
 
     ext_ports = [ext_port_N, ext_port_S, ext_port_W, ext_port_E]
 
@@ -1218,6 +1229,16 @@ def build_1x4resonator(layer, layer_dot, layer_barrier, layer_screening, layer_o
 
     # Create the bonding pads, and route all relevant paths to them
 
+    pu.write_lyp('1x4_inner_structure_props.lyp', layerset = lys)
+
+    D1.write_gds(filename = '1x4_inner_structure.gds', # Output GDS file name
+            unit = 1e-9,                  # Base unit (1e-6 = microns)
+            precision = 1e-9,             # Precision / resolution (1e-9 = nanometers)
+            auto_rename = True,           # Automatically rename cells to avoid collisions
+            max_cellname_length = 28,     # Max length of cell names
+            cellname = 'toplevel'         # Name of output top-level cell
+           )
+
     ext_ports = [[], [], [], []]
 
     N_numbers = [2, 4, 5, 6, 7, 8, 9]           # Setting the specific place where the gates on the device are routed to
@@ -1271,7 +1292,7 @@ def build_1x4resonator(layer, layer_dot, layer_barrier, layer_screening, layer_o
     East_objects_to_route = [vertical_barrier_sensordot_2.ports['4'], ohmic_4.ports['2'], sensordot_2_barrier_connector_2.ports['3'], 
                             sensordot_2_connector.ports['E'], screening_sensordot2_connector.ports['2'], sensordot_2_barrier_connector_1.ports['3'],
                             ohmic_3.ports['2'], vertical_barrier_sensordot_2.ports['2']]
-    
+
     route_ext_N = []
     route_ext_S = []
     route_ext_W = []
