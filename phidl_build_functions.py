@@ -1231,18 +1231,6 @@ def build_1x4resonator(layer, layer_dot, layer_barrier, layer_screening, layer_o
 
     # Create the bonding pads, and route all relevant paths to them
 
-    D_inner = pg.union(D1, by_layer = True)
-
-    pu.write_lyp('1x4_inner_structure_props.lyp', layerset = lys)
-
-    D_inner.write_gds(filename = '1x4_inner_structure.gds', # Output GDS file name
-            unit = 1e-9,                  # Base unit (1e-6 = microns)
-            precision = 1e-9,             # Precision / resolution (1e-9 = nanometers)
-            auto_rename = True,           # Automatically rename cells to avoid collisions
-            max_cellname_length = 28,     # Max length of cell names
-            cellname = 'toplevel'         # Name of output top-level cell
-           )
-
     ext_ports = [[], [], [], []]
 
     N_numbers = [2, 4, 5, 6, 7, 8, 9]           # Setting the specific place where the gates on the device are routed to
@@ -1320,6 +1308,18 @@ def build_1x4resonator(layer, layer_dot, layer_barrier, layer_screening, layer_o
                 route_ext_E[j] = D1.add_ref(pr.route_quad(East_objects_to_route[j], i[j], layer = layer_E[j]))
         counter_1 += 1
     D_without_local_markers = pg.union(D1, by_layer = True)
+
+    D_inner = pg.union(D_without_local_markers, by_layer = True)
+
+    pu.write_lyp('1x4_inner_structure_props.lyp', layerset = lys)
+
+    D_inner.write_gds(filename = '1x4_inner_structure.gds', # Output GDS file name
+            unit = 1e-9,                  # Base unit (1e-6 = microns)
+            precision = 1e-9,             # Precision / resolution (1e-9 = nanometers)
+            auto_rename = True,           # Automatically rename cells to avoid collisions
+            max_cellname_length = 28,     # Max length of cell names
+            cellname = 'toplevel'         # Name of output top-level cell
+           )
 
     # Adding the local markers
 
