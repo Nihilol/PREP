@@ -663,9 +663,11 @@ def build_2x3structure(layer, layer_dot, layer_barrier, layer_screening, layer_o
     port_ohmic_4 = D.add_port(name='O4', midpoint = [ohmic_4.center[0], ohmic_4.center[1]],
                                                 width = length_port_ohmic_4, orientation = orientation_port_ohmic_4)
 
+    D_inner = pg.union(D, by_layer = True)
+
     pu.write_lyp('2x3_inner_structure_props.lyp', layerset = lys)
 
-    D.write_gds(filename = '2x3_inner_structure.gds', # Output GDS file name
+    D_inner.write_gds(filename = '2x3_inner_structure.gds', # Output GDS file name
             unit = 1e-9,                  # Base unit (1e-6 = microns)
             precision = 1e-9,             # Precision / resolution (1e-9 = nanometers)
             auto_rename = True,           # Automatically rename cells to avoid collisions
@@ -1229,9 +1231,11 @@ def build_1x4resonator(layer, layer_dot, layer_barrier, layer_screening, layer_o
 
     # Create the bonding pads, and route all relevant paths to them
 
+    D_inner = pg.union(D1, by_layer = True)
+
     pu.write_lyp('1x4_inner_structure_props.lyp', layerset = lys)
 
-    D1.write_gds(filename = '1x4_inner_structure.gds', # Output GDS file name
+    D_inner.write_gds(filename = '1x4_inner_structure.gds', # Output GDS file name
             unit = 1e-9,                  # Base unit (1e-6 = microns)
             precision = 1e-9,             # Precision / resolution (1e-9 = nanometers)
             auto_rename = True,           # Automatically rename cells to avoid collisions
