@@ -13,7 +13,13 @@ def gds_cut(read_file, x_lims, y_lims, out_file, view = False):
         i2 = gdspy.slice(i1[1], y_lims, axis = 1, layer = i.layers[0])
         cell1.add(i2[1])
     
-    new_lib.write_gds(name = out_file)
+    new_lib.write_gds(out_file)
     if view:
         new_gds = gdspy.GdsLibrary(infile = out_file)
         gdspy.LayoutViewer(new_gds)
+
+class gate:
+    def __init__(self, voltage):
+        self.state = 1
+        self.voltage = voltage
+        
