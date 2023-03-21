@@ -1,6 +1,7 @@
-import numpy
+
 import gdspy
-from matplotlib import pyplot as plt
+import gdstk
+
 
 
 def gds_cut(read_file, x_lims, y_lims, out_file, view = False):
