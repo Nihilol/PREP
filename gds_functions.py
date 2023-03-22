@@ -20,7 +20,10 @@ def gds_cut(read_file, x_lims, y_lims, out_file, view = False):
         gdspy.LayoutViewer(new_gds)
 
 class gate:
-    def __init__(self, voltage):
-        self.state = 1
+    def __init__(self, layer, x_placement, y_placement, voltage):
+        self.state = 0
+        self.layer = layer
+        self.x_placement = x_placement
+        self.y_placement = y_placement
         self.voltage = voltage
         
