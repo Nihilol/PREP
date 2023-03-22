@@ -1,7 +1,7 @@
-
+import numpy as np
 import gdspy
 import gdstk
-
+import matplotlib as plt
 
 
 def gds_cut(read_file, x_lims, y_lims, out_file, view = False):
@@ -23,7 +23,8 @@ class gate:
     def __init__(self, layer, x_placement, y_placement, voltage):
         self.state = 0
         self.layer = layer
-        self.x_placement = x_placement
-        self.y_placement = y_placement
+        self.outline = np.array([x_placement, y_placement])
         self.voltage = voltage
         
+    def plot_outline(self, axis):
+        axis.plot(self.outline[0], self.outline[1])
